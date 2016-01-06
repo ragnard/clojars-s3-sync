@@ -1,7 +1,11 @@
 # clojars-s3-sync
 
-Synchronize the [clojars](https://clojars.org) repository to an s3
+Synchronise the [clojars](https://clojars.org) repository to an s3
 bucket.
+
+## Why?
+
+An S3 bucket with static website hosting enabled provides a simple and highly available way of mirroring clojars. This repo provides a docker image that can replicate the clojars repository to an s3 bucket of your choice.
 
 ## Requirements
 
@@ -27,3 +31,24 @@ bucket.
                ragge/clojars-s3-sync
   ```
 
+## S3 bucket configuration
+
+To use the s3 bucket as a mirror, it needs to be configured for statis website hosting, and have the appropriate permissions set.
+
+This bucket policy will allow anyone to get objects, which is what is required to use it as a mirror.
+
+```json
+{
+	"Version": "2012-10-17",
+	"Id": "Policy1452088453823",
+	"Statement": [
+		{
+			"Sid": "Stmt1452088451255",
+			"Effect": "Allow",
+			"Principal": "*",
+			"Action": "s3:GetObject",
+			"Resource": "arn:aws:s3:::name-of-bucket/*"
+		}
+	]
+}
+```
