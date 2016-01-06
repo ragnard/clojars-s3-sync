@@ -12,5 +12,7 @@ do
 
     echo "syncing s3 bucket ${BUCKET_NAME}"
     aws s3 sync . s3://${BUCKET_NAME}
+
+    echo "waiting for ${SYNC_PAUSE} seconds before next synchronisation" 
     sleep ${SYNC_PAUSE}
 done
